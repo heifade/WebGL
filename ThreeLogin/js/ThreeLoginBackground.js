@@ -97,34 +97,32 @@ function ThreeLoginBackground($canvas) {
 		}
 
 		
-		//I.wordsGroup.rotation.x = Math.PI / 3;//绕x轴转45度
+		//I.wordsGroup.rotation.x = -Math.PI / 3;//绕x轴转45度
     };
 
 	function drawWord(word, index){
 		var map = THREE.ImageUtils.loadTexture('img/' + word);//创建一个纹理映射，将其添加到场景中
         var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
             map: map,
-            //transparent: true
+            transparent: true
         });
         var geometry = new THREE.PlaneGeometry(0.4, 0.18, 2, 2 );
 
-		var r = 1;
+		var r = 0.8;
 		var range = Math.PI * 2 / 11 * index;
 		var x = r * Math.sin(range);
 		var y = r * Math.cos(range);
 
         
     	var cubeWord = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
-        cubeWord.position.z = -4;
-        cubeWord.position.y = -0.8;
-        cubeWord.rotation.x = x;//-Math.PI / 3;//绕x轴转45度
-        cubeWord.rotation.y = y;
+		cubeWord.position.x = x;
+        cubeWord.position.y = y;
+		cubeWord.position.z = -4;
+        
+        cubeWord.rotation.x = 0;//-Math.PI / 3;//绕x轴转45度
+        cubeWord.rotation.y = 0;
         I.wordsGroup.add(cubeWord);//将网格添加到场景中
 	};
-
-    
-
-    
 
     I.init = function() {
         var canvas = $canvas[0];
