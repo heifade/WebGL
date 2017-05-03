@@ -45,20 +45,20 @@ function ThreeLoginBackground($canvas) {
     };
 
     //画背景图片
-    function drawBackground() {
-        var group = new THREE.Object3D;//创建一个分组
-        I.scene.add(group);
+    // function drawBackground() {
+    //     var group = new THREE.Object3D;//创建一个分组
+    //     I.scene.add(group);
         
-        var map = THREE.ImageUtils.loadTexture('img/bg.png');//创建一个纹理映射，将其添加到场景中
-        var material = new THREE.MeshBasicMaterial({ map: map });//创建一个Phong材质，传入纹理映射参数
-        var geometry = new THREE.PlaneGeometry(12, 12, 12, 12 );
-        var cube = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
-        cube.position.z = -20;
-        cube.position.y = 0;
-        cube.rotation.x = 0;//绕x轴转45度
-        cube.rotation.y = 0;//Math.PI / 2;
-        group.add(cube);//将网格添加到场景中
-    };
+    //     var map = THREE.ImageUtils.loadTexture('img/bg.png');//创建一个纹理映射，将其添加到场景中
+    //     var material = new THREE.MeshBasicMaterial({ map: map });//创建一个Phong材质，传入纹理映射参数
+    //     var geometry = new THREE.PlaneGeometry(12, 12, 12, 12 );
+    //     var cube = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
+    //     cube.position.z = -20;
+    //     cube.position.y = 0;
+    //     cube.rotation.x = 0;//绕x轴转45度
+    //     cube.rotation.y = 0;//Math.PI / 2;
+    //     group.add(cube);//将网格添加到场景中
+    // };
     //画转动的圈
     function drawCircle() {
         var group = new THREE.Object3D;//创建一个分组
@@ -329,10 +329,10 @@ function ThreeLoginBackground($canvas) {
     I.init = function() {
         var canvas = $canvas[0];
 
-        I.randerer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});//创建渲染器， 抗锯齿
+        I.randerer = new THREE.WebGLRenderer({canvas: canvas, antialias: true,alpha:true});//创建渲染器， 抗锯齿
         I.randerer.setSize(canvas.width, canvas.height);//设置视口尺寸
 
-        //I.randerer.setClearColor( 0xf0f0f0 );
+        I.randerer.setClearColor( 0xf0f0f0,0.0 );
 		//I.randerer.setPixelRatio( window.devicePixelRatio );
 		//I.randerer.setSize( window.innerWidth, window.innerHeight );
 
@@ -342,7 +342,7 @@ function ThreeLoginBackground($canvas) {
         //I.camera.position.set(0, 1, 1);
         I.scene.add(I.camera);
 
-        drawBackground();//画背景图片
+        //drawBackground();//画背景图片
         drawCircle();//画转动的圈
         //drawWords();//画转动的文字
 
