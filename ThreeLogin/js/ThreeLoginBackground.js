@@ -59,7 +59,6 @@ function ThreeLoginBackground($canvas) {
     // function drawBackground() {
     //     var group = new THREE.Object3D;//创建一个分组
     //     I.scene.add(group);
-        
     //     var map = THREE.ImageUtils.loadTexture('img/bg.png');//创建一个纹理映射，将其添加到场景中
     //     var material = new THREE.MeshBasicMaterial({ map: map });//创建一个Phong材质，传入纹理映射参数
     //     var geometry = new THREE.PlaneGeometry(12, 12, 12, 12 );
@@ -79,9 +78,7 @@ function ThreeLoginBackground($canvas) {
         // light.position.set(0, 0, 1);//将光源放在场景外，指向原点
         // group.add(light);
 
-		var loader = new THREE.TextureLoader();
-		loader.load('img/pic1.svg', function ( map ) {//创建一个纹理映射，将其添加到场景中
-			//var map = THREE.ImageUtils.loadTexture('img/pic1.svg');//创建一个纹理映射，将其添加到场景中
+		loadTexture('img/pic1.svg', function ( map ) {//创建一个纹理映射，将其添加到场景中
 			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
 				map: map,
 				transparent: true
@@ -90,8 +87,8 @@ function ThreeLoginBackground($canvas) {
 			
 			I.cubeCircle = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
 			I.cubeCircle.position.z = -5;
-			I.cubeCircle.position.y = -0.8;
-			I.cubeCircle.rotation.x = -Math.PI / 2.5;//绕x轴转45度
+			I.cubeCircle.position.y = -0.7;
+			I.cubeCircle.rotation.x = -Math.PI / 3.9;//绕x轴转45度
 			I.cubeCircle.rotation.y = 0;//Math.PI / 2;
 			group.add(I.cubeCircle);//将网格添加到场景中
 		});
@@ -99,23 +96,22 @@ function ThreeLoginBackground($canvas) {
 
 	function getWordPosition(pos){
 		
-		var pm1 = new THREE.Matrix4();
-		pm1.lookAt(
-			new THREE.Vector3(0,0,10),
-			new THREE.Vector3(0,0,-5),
-			new THREE.Vector3(0,1,0),
-		);
+		// var pm1 = new THREE.Matrix4();
+		// pm1.lookAt(
+		// 	new THREE.Vector3(0,0,10),
+		// 	new THREE.Vector3(0,0,-5),
+		// 	new THREE.Vector3(0,1,0),
+		// );
 
 		var pm2 = new THREE.Matrix4();
-		var q = new THREE.Quaternion(0.6, 0, 0, 0);
+		var q = new THREE.Quaternion(0.61, 0, 0, 0);
 		//q.setFromAxisAngle(new THREE.Vector3(0.4, 0, 0), 45);
 		pm2.makeRotationFromQuaternion(q);
-
-		var pm3 = pm1.multiply(pm2);
-		
+		//pm2.makePerspective(50, 1, 1, -30);
+		//var pm3 = pm1.multiply(pm2);
 			
 		var v3 = new THREE.Vector3(pos.x, pos.y, pos.z);
-		var v3p = v3.applyMatrix4(pm3);
+		var v3p = v3.applyMatrix4(pm2);
 
 		return {
 			x: v3p.x,
@@ -133,18 +129,22 @@ function ThreeLoginBackground($canvas) {
 			var range = Math.PI * 2 / count * i + I.wordsRange;
 			var pos = {
 				x: I.wordRadius * Math.sin(range),
-				y: I.wordRadius * Math.cos(range),
+				y: I.wordRadius * Math.cos(range) - 1.3,
 				z: -6
 			}
 
 			var p = getWordPosition(pos);
 
+			p.z = p.z * Math.cos(range) - 3 ;
+
+			console.log( p.x, p.y, p.z);
+
+
 			if(word.cube){
 				word.cube.position.x = p.x;
 				word.cube.position.y = p.y;
 				word.cube.position.z = p.z;
-			}
-			
+			}	
 		}
 	};
 
@@ -164,14 +164,12 @@ function ThreeLoginBackground($canvas) {
     };
 
 	function drawWord(word){
-
-		var loader = new THREE.TextureLoader();
-		loader.load('img/' + word.pic, function ( map ) {//创建一个纹理映射，将其添加到场景中
+		loadTexture('img/' + word.pic, function ( map ) {
 			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
 				map: map,
-				transparent: true
+				transparent: true//透明
 			});
-			var geometry = new THREE.PlaneGeometry(0.20, 0.07, 2, 2 );
+			var geometry = new THREE.PlaneGeometry(0.20, 0.065, 2, 2);
 
 			var cube = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
 			word.cube = cube;
@@ -183,21 +181,26 @@ function ThreeLoginBackground($canvas) {
 			I.wordsGroup.add(cube);//将网格添加到场景中
 		});
 	};
+	//加载纹理
+	function loadTexture(imgUrl, finish){
+		var loader = new THREE.TextureLoader();
+		loader.load(imgUrl, function ( map ) {
+			finish(map);
+		});
+	};
 
     I.init = function() {
         var canvas = $canvas[0];
 
-        I.randerer = new THREE.WebGLRenderer({canvas: canvas, antialias: true,alpha:true});//创建渲染器， 抗锯齿
+        I.randerer = new THREE.WebGLRenderer({canvas: canvas, antialias: true, alpha:true});//创建渲染器，抗锯齿，透明
         I.randerer.setSize(canvas.width, canvas.height);//设置视口尺寸
-
-        I.randerer.setClearColor( 0xf0f0f0,0.0 );
+        I.randerer.setClearColor(0xf0f0f0, 0.0);
 		//I.randerer.setPixelRatio( window.devicePixelRatio );
 		//I.randerer.setSize( window.innerWidth, window.innerHeight );
 
         I.scene = new THREE.Scene();//创建一个场景
         I.camera = new THREE.PerspectiveCamera(30, 1, 1, 1000);//添加一个相机以便观察整个场景(视野角度,宽高比,最近平面位置,最远平面位置)
-        I.camera.position.z = 1;
-        //I.camera.position.set(0, 0, 10);
+        I.camera.position.set(0, 0, 1);//设置像机位置
         I.scene.add(I.camera);
 
         //drawBackground();//画背景图片

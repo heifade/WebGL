@@ -10,18 +10,24 @@
 	<script src="js/cuon-matrix.js"></script>
 	<!--<link href="css/threeLoginBackground.css" rel="stylesheet">-->
 	<style>
-		#canvas1 {
-			background: url(img/bg.png) center center;
-			background-size: 800px 800px;
+		.treeloginbackground {
+			background-color: #07112B;
+			text-align: center;
+		}
+		.canvas1 {
+			background: url(img/bg.png) center center no-repeat;
+			background-size: 1280px 800px;
 		}
 	</style>
 </head>
 
 <body>
-    <canvas width="800" height="800" id="canvas1"></canvas>
+	<div class="treeloginbackground">
+    	<canvas width="1280" height="800" class="canvas1"></canvas>
+	</div>
 
 	<script>
-		var bg = new ThreeLoginBackground($('#canvas1'));
+		var bg = new ThreeLoginBackground($('.canvas1'));
 		bg.init();
 	</script>
 </body>
