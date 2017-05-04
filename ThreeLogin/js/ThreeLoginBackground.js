@@ -4,7 +4,8 @@ function ThreeLoginBackground($canvas) {
     I.randerer = null;
     I.scene = null;
     I.camera = null;
-    I.cubeCircle = null;//圆盘
+    I.cubeCircle1 = null;//圆盘1
+	I.cubeCircle2 = null;//圆盘2
 	I.cubeWords = null;//字
 	I.wordsRange = 0;
 
@@ -18,14 +19,45 @@ function ThreeLoginBackground($canvas) {
         var fract = deltat / I.duration;
         var angle = Math.PI * 2 * fract;
         
-		if(I.cubeCircle){
-			I.cubeCircle.rotation.z += angle;//绕z轴转
+		if(I.cubeCircle1){
+			I.cubeCircle1.rotation.z += angle;//绕z轴转
 		}
-        
-        //I.cubeWords.rotation.z += angle;//绕z轴转
-		//I.wordsGroup.rotation.z += angle;//绕z轴转
+		if(I.cubeCircle2){
+			I.cubeCircle2.rotation.z += angle;//绕z轴转
+		}
+		if(I.cubeCircle3){
+			I.cubeCircle3.rotation.z += angle;//绕z轴转
+		}
+		if(I.cubeCircle4){
+			I.cubeCircle4.rotation.z += angle;//绕z轴转
+		}
+
+		downLine(I.cubeLine11);
+		downLine(I.cubeLine12);
+		downLine(I.cubeLine21);
+		downLine(I.cubeLine22);
+		downLine(I.cubeLine31);
+		downLine(I.cubeLine32);
+		downLine(I.cubeLine41);
+		downLine(I.cubeLine42);
+		
 		I.wordsRange += -0.002;
     };
+
+	function downLine(cube){
+		if(cube){
+			var maxY = 1.8;
+			cube.position.y -= 0.01;
+			cube.position.z -= 0.01;
+			cube.material.opacity = (maxY + cube.position.y) / maxY / 2;
+			if(cube.position.y < -maxY - 1){
+				cube.position.y = maxY;
+				cube.position.z = -6;
+
+				cube.material.opacity = 1;
+			}
+		}
+	};
 
 	function run() {
         requestAnimationFrame(function () {
@@ -57,7 +89,7 @@ function ThreeLoginBackground($canvas) {
 
     //画背景图片
     // function drawBackground() {
-    //     var group = new THREE.Object3D;//创建一个分组
+    //     var group = new THREE.Object3D();//创建一个分组
     //     I.scene.add(group);
     //     var map = THREE.ImageUtils.loadTexture('img/bg.png');//创建一个纹理映射，将其添加到场景中
     //     var material = new THREE.MeshBasicMaterial({ map: map });//创建一个Phong材质，传入纹理映射参数
@@ -69,49 +101,97 @@ function ThreeLoginBackground($canvas) {
     //     cube.rotation.y = 0;//Math.PI / 2;
     //     group.add(cube);//将网格添加到场景中
     // };
-    //画转动的圈
-    function drawCircle() {
-        var group = new THREE.Object3D;//创建一个分组
+    //画转动的圈1
+    function drawCircle1() {
+        var group = new THREE.Object3D();//创建一个分组
         I.scene.add(group);
-
-        // var light = new THREE.DirectionalLight(0xffffff, 1);//添加用于突出显示物体的定向光
-        // light.position.set(0, 0, 1);//将光源放在场景外，指向原点
-        // group.add(light);
 
 		loadTexture('img/pic1.svg', function ( map ) {//创建一个纹理映射，将其添加到场景中
 			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
 				map: map,
 				transparent: true
 			});
-			var geometry = new THREE.PlaneGeometry(2, 2, 2, 2);
+			var geometry = new THREE.PlaneGeometry(1.55, 1.55, 2, 2);
 			
-			I.cubeCircle = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
-			I.cubeCircle.position.z = -5;
-			I.cubeCircle.position.y = -0.7;
-			I.cubeCircle.rotation.x = -Math.PI / 3.9;//绕x轴转45度
-			I.cubeCircle.rotation.y = 0;//Math.PI / 2;
-			group.add(I.cubeCircle);//将网格添加到场景中
+			I.cubeCircle1 = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
+			I.cubeCircle1.position.z = -5;
+			I.cubeCircle1.position.y = -0.77;
+			I.cubeCircle1.rotation.x = -Math.PI / 4.5;//绕x轴转45度
+			I.cubeCircle1.rotation.y = 0;//Math.PI / 2;
+			group.add(I.cubeCircle1);//将网格添加到场景中
+		});
+    };
+
+	//画转动的圈2
+    function drawCircle2() {
+        var group = new THREE.Object3D();//创建一个分组
+        I.scene.add(group);
+
+		loadTexture('img/pic2.svg', function ( map ) {//创建一个纹理映射，将其添加到场景中
+			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
+				map: map,
+				transparent: true
+			});
+			var geometry = new THREE.PlaneGeometry(1.18, 1.18, 2, 2);
+			
+			I.cubeCircle2 = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
+			I.cubeCircle2.position.z = -5;
+			I.cubeCircle2.position.y = -0.75;
+			I.cubeCircle2.rotation.x = -Math.PI / 4.5;//绕x轴转45度
+			I.cubeCircle2.rotation.y = 0;//Math.PI / 2;
+			group.add(I.cubeCircle2);//将网格添加到场景中
+		});
+    };
+
+	//画转动的圈3
+    function drawCircle3() {
+        var group = new THREE.Object3D();//创建一个分组
+        I.scene.add(group);
+
+		loadTexture('img/pic3.svg', function ( map ) {//创建一个纹理映射，将其添加到场景中
+			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
+				map: map,
+				transparent: true
+			});
+			var geometry = new THREE.PlaneGeometry(0.9, 0.9, 2, 2);
+			
+			I.cubeCircle3 = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
+			I.cubeCircle3.position.z = -5;
+			I.cubeCircle3.position.y = -0.67;
+			I.cubeCircle3.rotation.x = -Math.PI / 4.5;//绕x轴转45度
+			I.cubeCircle3.rotation.y = 0;//Math.PI / 2;
+			group.add(I.cubeCircle3);//将网格添加到场景中
+		});
+    };
+
+	//画转动的圈4
+    function drawCircle4() {
+        var group = new THREE.Object3D();//创建一个分组
+        I.scene.add(group);
+
+		loadTexture('img/pic4.svg', function ( map ) {//创建一个纹理映射，将其添加到场景中
+			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
+				map: map,
+				transparent: true
+			});
+			var geometry = new THREE.PlaneGeometry(0.45, 0.45, 2, 2);
+			
+			I.cubeCircle4 = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
+			I.cubeCircle4.position.z = -5;
+			I.cubeCircle4.position.y = -0.6;
+			I.cubeCircle4.rotation.x = -Math.PI / 4.5;//绕x轴转45度
+			I.cubeCircle4.rotation.y = 0;//Math.PI / 2;
+			group.add(I.cubeCircle4);//将网格添加到场景中
 		});
     };
 
 	function getWordPosition(pos){
-		
-		// var pm1 = new THREE.Matrix4();
-		// pm1.lookAt(
-		// 	new THREE.Vector3(0,0,10),
-		// 	new THREE.Vector3(0,0,-5),
-		// 	new THREE.Vector3(0,1,0),
-		// );
 
-		var pm2 = new THREE.Matrix4();
-		var q = new THREE.Quaternion(0.61, 0, 0, 0);
-		//q.setFromAxisAngle(new THREE.Vector3(0.4, 0, 0), 45);
-		pm2.makeRotationFromQuaternion(q);
-		//pm2.makePerspective(50, 1, 1, -30);
-		//var pm3 = pm1.multiply(pm2);
+		var pm = new THREE.Matrix4();
+		pm.makeRotationFromQuaternion(new THREE.Quaternion(0.53, 0, 0, 0));
 			
 		var v3 = new THREE.Vector3(pos.x, pos.y, pos.z);
-		var v3p = v3.applyMatrix4(pm2);
+		var v3p = v3.applyMatrix4(pm);
 
 		return {
 			x: v3p.x,
@@ -129,16 +209,12 @@ function ThreeLoginBackground($canvas) {
 			var range = Math.PI * 2 / count * i + I.wordsRange;
 			var pos = {
 				x: I.wordRadius * Math.sin(range),
-				y: I.wordRadius * Math.cos(range) - 1.3,
+				y: I.wordRadius * Math.cos(range) - 0.5,//文字y坐标
 				z: -6
 			}
 
 			var p = getWordPosition(pos);
-
-			p.z = p.z * Math.cos(range) - 3 ;
-
-			console.log( p.x, p.y, p.z);
-
+			p.z = p.z * Math.cos(range) / 2.5 - 2.2 ; //修改z坐标
 
 			if(word.cube){
 				word.cube.position.x = p.x;
@@ -150,12 +226,12 @@ function ThreeLoginBackground($canvas) {
 
     //画转动的文字
     function drawWords(){
-        I.wordsGroup = new THREE.Object3D;//创建一个分组
+        I.wordsGroup = new THREE.Object3D();//创建一个分组
         I.scene.add(I.wordsGroup);
 
 		var words = getWords();
 
-		I.wordRadius = 0.5;
+		I.wordRadius = 0.4;
 		var count = words.length;
 
 		for(var i=0;i<count;i++){
@@ -169,7 +245,7 @@ function ThreeLoginBackground($canvas) {
 				map: map,
 				transparent: true//透明
 			});
-			var geometry = new THREE.PlaneGeometry(0.20, 0.065, 2, 2);
+			var geometry = new THREE.PlaneGeometry(0.1, 0.058, 2, 2);
 
 			var cube = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
 			word.cube = cube;
@@ -181,6 +257,115 @@ function ThreeLoginBackground($canvas) {
 			I.wordsGroup.add(cube);//将网格添加到场景中
 		});
 	};
+
+	function createDrawLine(params, finish){
+		loadTexture(params.imgUrl, function ( map ) {//创建一个纹理映射，将其添加到场景中
+			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
+				map: map,
+				transparent: true
+			});
+			var geometry = new THREE.PlaneGeometry(0.01, 0.13, 2, 2);
+			
+			var cube = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
+			cube.position.z = -6;//params.pos.z;
+			cube.position.x = params.pos.x;
+			cube.position.y = params.pos.y;
+			cube.rotation.x = 0;//绕x轴转45度
+			cube.rotation.y = 0;//Math.PI / 2;
+			finish(cube);
+		});
+	};
+
+	function createDrawLine2(params, finish){
+		loadTexture(params.imgUrl, function ( map ) {//创建一个纹理映射，将其添加到场景中
+			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
+				map: map,
+				transparent: true
+			});
+			var geometry = new THREE.PlaneGeometry(0.01, 0.13, 2, 2);
+			
+			var cube = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
+			cube.position.z = -6;//params.pos.z;
+			cube.position.x = params.pos.x;
+			cube.position.y = params.pos.y;
+			cube.rotation.x = 0;//绕x轴转45度
+			cube.rotation.y = 0;//Math.PI / 2;
+			finish(cube);
+		});
+	};
+
+	function drawLines(){
+		var group = new THREE.Object3D();//创建一个分组
+        I.scene.add(group);
+
+		createDrawLine({
+				imgUrl: 'img/light1.svg',
+				pos:{x: -1,	y: 1.6 }
+			}, function(cube){
+			I.cubeLine11 = cube;
+			group.add(cube);//将网格添加到场景中
+		});
+
+		createDrawLine({
+				imgUrl: 'img/light1.svg',
+				pos:{x: -1,	y: -0.5 }
+			}, function(cube){
+			I.cubeLine12 = cube;
+			group.add(cube);//将网格添加到场景中
+		});
+
+		createDrawLine({
+				imgUrl: 'img/light1.svg',
+				pos:{x: -0.8,	y: 1.4 }
+			}, function(cube){
+			I.cubeLine21 = cube;
+			group.add(cube);//将网格添加到场景中
+		});
+
+		createDrawLine({
+				imgUrl: 'img/light1.svg',
+				pos:{x: -0.8,	y: -0.3 }
+			}, function(cube){
+			I.cubeLine22 = cube;
+			group.add(cube);//将网格添加到场景中
+		});
+
+		createDrawLine2({
+				imgUrl: 'img/light2.svg',
+				pos:{x: 0.8,	y: 1.6 }
+			}, function(cube){
+			I.cubeLine31 = cube;
+			group.add(cube);//将网格添加到场景中
+		});
+
+		createDrawLine2({
+				imgUrl: 'img/light2.svg',
+				pos:{x: 0.8,	y: -0.5 }
+			}, function(cube){
+			I.cubeLine32 = cube;
+			group.add(cube);//将网格添加到场景中
+		});
+
+		createDrawLine2({
+				imgUrl: 'img/light2.svg',
+				pos:{x: 1,	y: -1.4 }
+			}, function(cube){
+			I.cubeLine41 = cube;
+			group.add(cube);//将网格添加到场景中
+		});
+
+		createDrawLine2({
+				imgUrl: 'img/light2.svg',
+				pos:{x: 1,	y: -0.3 }
+			}, function(cube){
+			I.cubeLine42 = cube;
+			group.add(cube);//将网格添加到场景中
+		});
+	};
+
+
+
+
 	//加载纹理
 	function loadTexture(imgUrl, finish){
 		var loader = new THREE.TextureLoader();
@@ -199,15 +384,30 @@ function ThreeLoginBackground($canvas) {
 		//I.randerer.setSize( window.innerWidth, window.innerHeight );
 
         I.scene = new THREE.Scene();//创建一个场景
-        I.camera = new THREE.PerspectiveCamera(30, 1, 1, 1000);//添加一个相机以便观察整个场景(视野角度,宽高比,最近平面位置,最远平面位置)
+        I.camera = new THREE.PerspectiveCamera(28, 1, 1, 10);//添加一个相机以便观察整个场景(视野角度,宽高比,最近平面位置,最远平面位置)
         I.camera.position.set(0, 0, 1);//设置像机位置
         I.scene.add(I.camera);
 
+		// var light = new THREE.DirectionalLight(0xffffff, 1);//添加用于突出显示物体的定向光
+        // light.position.set(0, 0, 1);//将光源放在场景外，指向原点
+        // group.add(light);
+
         //drawBackground();//画背景图片
-        drawCircle();//画转动的圈
+        drawCircle1();//画转动的圈1
+		drawCircle2();//画转动的圈2
+		drawCircle3();//画转动的圈3
+		drawCircle4();//画转动的圈4
         drawWords();//画转动的文字
+		drawLines();
         
-        //drawWord();
+        
+
+		
+
+
+
+
+
         
         run();
     };
