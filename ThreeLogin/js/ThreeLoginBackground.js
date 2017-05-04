@@ -20,13 +20,13 @@ function ThreeLoginBackground($canvas) {
         var angle = Math.PI * 2 * fract;
         
 		if(I.cubeCircle1){
-			I.cubeCircle1.rotation.z += angle;//绕z轴转
+			I.cubeCircle1.rotation.z += angle / 4;//绕z轴转
 		}
 		if(I.cubeCircle2){
-			I.cubeCircle2.rotation.z += angle;//绕z轴转
+			I.cubeCircle2.rotation.z += angle / 3;//绕z轴转
 		}
 		if(I.cubeCircle3){
-			I.cubeCircle3.rotation.z += angle;//绕z轴转
+			I.cubeCircle3.rotation.z += angle / 2;//绕z轴转
 		}
 		if(I.cubeCircle4){
 			I.cubeCircle4.rotation.z += angle;//绕z轴转
@@ -103,10 +103,7 @@ function ThreeLoginBackground($canvas) {
     // };
     //画转动的圈1
     function drawCircle1() {
-        var group = new THREE.Object3D();//创建一个分组
-        I.scene.add(group);
-
-		loadTexture('img/pic1.svg', function ( map ) {//创建一个纹理映射，将其添加到场景中
+		loadTexture('img/pic1.png', function ( map ) {//创建一个纹理映射，将其添加到场景中
 			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
 				map: map,
 				transparent: true
@@ -115,40 +112,35 @@ function ThreeLoginBackground($canvas) {
 			
 			I.cubeCircle1 = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
 			I.cubeCircle1.position.z = -5;
-			I.cubeCircle1.position.y = -0.77;
+			I.cubeCircle1.position.y = -0.75;
 			I.cubeCircle1.rotation.x = -Math.PI / 4.5;//绕x轴转45度
 			I.cubeCircle1.rotation.y = 0;//Math.PI / 2;
-			group.add(I.cubeCircle1);//将网格添加到场景中
+			I.scene.add(I.cubeCircle1);//将网格添加到场景中
 		});
     };
 
 	//画转动的圈2
     function drawCircle2() {
-        var group = new THREE.Object3D();//创建一个分组
-        I.scene.add(group);
-
-		loadTexture('img/pic2.svg', function ( map ) {//创建一个纹理映射，将其添加到场景中
+		loadTexture('img/pic2.png', function ( map ) {//创建一个纹理映射，将其添加到场景中
 			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
 				map: map,
-				transparent: true
+				transparent: true,
+				opacity: 1
 			});
 			var geometry = new THREE.PlaneGeometry(1.18, 1.18, 2, 2);
 			
 			I.cubeCircle2 = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
-			I.cubeCircle2.position.z = -5;
-			I.cubeCircle2.position.y = -0.75;
+			I.cubeCircle2.position.z = -4.9;
+			I.cubeCircle2.position.y = -0.72;
 			I.cubeCircle2.rotation.x = -Math.PI / 4.5;//绕x轴转45度
 			I.cubeCircle2.rotation.y = 0;//Math.PI / 2;
-			group.add(I.cubeCircle2);//将网格添加到场景中
+			I.scene.add(I.cubeCircle2);//将网格添加到场景中
 		});
     };
 
 	//画转动的圈3
     function drawCircle3() {
-        var group = new THREE.Object3D();//创建一个分组
-        I.scene.add(group);
-
-		loadTexture('img/pic3.svg', function ( map ) {//创建一个纹理映射，将其添加到场景中
+		loadTexture('img/pic3.png', function ( map ) {//创建一个纹理映射，将其添加到场景中
 			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
 				map: map,
 				transparent: true
@@ -156,32 +148,29 @@ function ThreeLoginBackground($canvas) {
 			var geometry = new THREE.PlaneGeometry(0.9, 0.9, 2, 2);
 			
 			I.cubeCircle3 = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
-			I.cubeCircle3.position.z = -5;
-			I.cubeCircle3.position.y = -0.67;
+			I.cubeCircle3.position.z = -4.8;
+			I.cubeCircle3.position.y = -0.64;
 			I.cubeCircle3.rotation.x = -Math.PI / 4.5;//绕x轴转45度
 			I.cubeCircle3.rotation.y = 0;//Math.PI / 2;
-			group.add(I.cubeCircle3);//将网格添加到场景中
+			I.scene.add(I.cubeCircle3);//将网格添加到场景中
 		});
     };
 
 	//画转动的圈4
     function drawCircle4() {
-        var group = new THREE.Object3D();//创建一个分组
-        I.scene.add(group);
-
-		loadTexture('img/pic4.svg', function ( map ) {//创建一个纹理映射，将其添加到场景中
+		loadTexture('img/pic4.png', function ( map ) {//创建一个纹理映射，将其添加到场景中
 			var material = new THREE.MeshBasicMaterial({ //创建一个基础材质，传入纹理映射参数
 				map: map,
 				transparent: true
 			});
-			var geometry = new THREE.PlaneGeometry(0.45, 0.45, 2, 2);
+			var geometry = new THREE.PlaneGeometry(0.42, 0.42, 2, 2);
 			
 			I.cubeCircle4 = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
-			I.cubeCircle4.position.z = -5;
-			I.cubeCircle4.position.y = -0.6;
+			I.cubeCircle4.position.z = -4.7;
+			I.cubeCircle4.position.y = -0.57;
 			I.cubeCircle4.rotation.x = -Math.PI / 4.5;//绕x轴转45度
 			I.cubeCircle4.rotation.y = 0;//Math.PI / 2;
-			group.add(I.cubeCircle4);//将网格添加到场景中
+			I.scene.add(I.cubeCircle4);//将网格添加到场景中
 		});
     };
 
