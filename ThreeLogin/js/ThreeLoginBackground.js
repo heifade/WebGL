@@ -71,17 +71,17 @@ function ThreeLoginBackground($canvas) {
     function getWords(){
 		if(I.words == null){
 			I.words = [
-				{pic: 'login_font_api.svg' },
-				{pic: 'login_font_baojia.svg' },
-				{pic: 'login_font_dizhiku.svg' },
-				{pic: 'login_font_gpsgenzong.svg' },
-				{pic: 'login_font_jiagemoxing.svg' },
-				{pic: 'login_font_kaifangpingtai.svg' },
-				{pic: 'login_font_paidan.svg' },
-				{pic: 'login_font_paixian.svg' },
-				{pic: 'login_font_qiyezhanghu.svg' },
-				{pic: 'login_font_xinyongmoxing.svg' },
-				{pic: 'login_font_zhinengpeizai.svg' }
+				{pic: 'login_font_api.png' },
+				{pic: 'login_font_baojia.png' },
+				{pic: 'login_font_dizhiku.png' },
+				{pic: 'login_font_gpsgenzong.png' },
+				{pic: 'login_font_jiagemoxing.png' },
+				{pic: 'login_font_kaifangpingtai.png' },
+				{pic: 'login_font_paidan.png' },
+				{pic: 'login_font_paixian.png' },
+				{pic: 'login_font_qiyezhanghu.png' },
+				{pic: 'login_font_xinyongmoxing.png' },
+				{pic: 'login_font_zhinengpeizai.png' }
 			];
 		}
         return I.words;
@@ -234,7 +234,7 @@ function ThreeLoginBackground($canvas) {
 				map: map,
 				transparent: true//透明
 			});
-			var geometry = new THREE.PlaneGeometry(0.1, 0.058, 2, 2);
+			var geometry = new THREE.PlaneGeometry(0.1, 0.046, 2, 2);
 
 			var cube = new THREE.Mesh(geometry, material);//将几何形状和材质整合到一个网格中
 			word.cube = cube;
@@ -288,7 +288,7 @@ function ThreeLoginBackground($canvas) {
         I.scene.add(group);
 
 		createDrawLine({
-				imgUrl: 'img/light1.svg',
+				imgUrl: 'img/light1.png',
 				pos:{x: -1,	y: 1.6 }
 			}, function(cube){
 			I.cubeLine11 = cube;
@@ -296,7 +296,7 @@ function ThreeLoginBackground($canvas) {
 		});
 
 		createDrawLine({
-				imgUrl: 'img/light1.svg',
+				imgUrl: 'img/light1.png',
 				pos:{x: -1,	y: -0.5 }
 			}, function(cube){
 			I.cubeLine12 = cube;
@@ -304,7 +304,7 @@ function ThreeLoginBackground($canvas) {
 		});
 
 		createDrawLine({
-				imgUrl: 'img/light1.svg',
+				imgUrl: 'img/light1.png',
 				pos:{x: -0.8,	y: 1.4 }
 			}, function(cube){
 			I.cubeLine21 = cube;
@@ -312,7 +312,7 @@ function ThreeLoginBackground($canvas) {
 		});
 
 		createDrawLine({
-				imgUrl: 'img/light1.svg',
+				imgUrl: 'img/light1.png',
 				pos:{x: -0.8,	y: -0.3 }
 			}, function(cube){
 			I.cubeLine22 = cube;
@@ -320,7 +320,7 @@ function ThreeLoginBackground($canvas) {
 		});
 
 		createDrawLine2({
-				imgUrl: 'img/light2.svg',
+				imgUrl: 'img/light2.png',
 				pos:{x: 0.8,	y: 1.6 }
 			}, function(cube){
 			I.cubeLine31 = cube;
@@ -328,7 +328,7 @@ function ThreeLoginBackground($canvas) {
 		});
 
 		createDrawLine2({
-				imgUrl: 'img/light2.svg',
+				imgUrl: 'img/light2.png',
 				pos:{x: 0.8,	y: -0.5 }
 			}, function(cube){
 			I.cubeLine32 = cube;
@@ -336,7 +336,7 @@ function ThreeLoginBackground($canvas) {
 		});
 
 		createDrawLine2({
-				imgUrl: 'img/light2.svg',
+				imgUrl: 'img/light2.png',
 				pos:{x: 1,	y: -1.4 }
 			}, function(cube){
 			I.cubeLine41 = cube;
@@ -344,7 +344,7 @@ function ThreeLoginBackground($canvas) {
 		});
 
 		createDrawLine2({
-				imgUrl: 'img/light2.svg',
+				imgUrl: 'img/light2.png',
 				pos:{x: 1,	y: -0.3 }
 			}, function(cube){
 			I.cubeLine42 = cube;
@@ -389,15 +389,22 @@ function ThreeLoginBackground($canvas) {
         drawWords();//画转动的文字
 		drawLines();
         
-        
-
-		
-
-
-
-
-
-        
         run();
+
+		document.body.addEventListener('mousemove', onMouseOver);
     };
+
+
+	function setCameraPosition(pos){
+		I.camera.position.setX(pos.x);
+		I.camera.position.setY(pos.y);
+	};
+
+
+	function onMouseOver(e){
+		setCameraPosition({
+			x: (e.clientX / $(document.body).width() - 0.5) / 10,
+			y: -(e.clientY / $(document.body).height() - 0.5) / 10
+		});
+	}
 };
